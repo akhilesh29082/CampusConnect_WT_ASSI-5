@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {validate,initial,checks} from './src/validation.js';
+const good={name:'Aarav Sharma',email:'aarav@example.com',phone:'9876543210',course:'Computer Engineering',password:'Campus@123',confirm:'Campus@123',terms:true};
+test('valid form',()=>assert.deepEqual(validate(good),{}));test('empty form',()=>assert.equal(Object.keys(validate(initial)).length,7));for(const [k,v] of Object.entries({name:'1',email:'bad',phone:'123',course:'',password:'abc',confirm:'different',terms:false})){test('invalid '+k,()=>assert.ok(validate({...good,[k]:v})[k]));}test('strength',()=>assert.equal(checks(good.password).filter(Boolean).length,5));
